@@ -1,4 +1,5 @@
-##  变量和类型
+## 变量和类型
+
 - 1.  js 规定了几种语言类型？
 
       > js 的六个基本数据类型（原始类型）为：String、Number、Boolean、undefined、null、Symbol（ES6） >js 基本类型都是直接按值存储在栈中的，每种数据类型占用的内存空间大小确定，由系统自动分配和自动释放。好处是内存可以及时回收，相对于堆来说更加容易管理内存空间
@@ -24,15 +25,45 @@
 - 6. 理解值类型和引用类型
      >
 - 7. null 和 undefined 的区别
-     > null 表示一个空对象指针，typeof返回Object  
-     > undefined 是一个已被声明还未被初始化的变量，用来表示尚未存在的对象。typeof返回undefined
+     > null 表示一个空对象指针，typeof 返回 Object  
+     > undefined 是一个已被声明还未被初始化的变量，用来表示尚未存在的对象。typeof 返回 undefined
      ```
      console.log(null==undefined) // true
      console.log(null === undefined)  // false
      ```
-- 8. 至少可以说出三种判断 JavaScript 数据类型的方式，以及他们的优缺点，如何准确的判断数组类型
-     >
+
+- 8.  至少可以说出三种判断 JavaScript 数据类型的方式，以及他们的优缺点，如何准确的判断数组类型
+
+      > typeOf()  
+      - 对于基本类型除了null均可以返回正确的结果（String、number、boolean、undefined、Symbol）
+      - 引用类型除了function外全部返回Object
+      - 对于null返回object类型，无法再返回具体类型
+      - 对于function类型返回function类型
+      > instanceOf()  
+      > constructor  
+      > Object.prototype.toString  
+      > jquery.type()  
+      > 参考链接 https://www.cnblogs.com/onepixel/p/5126046.html  
+      > https://blog.csdn.net/mozuncangtianbaxue/article/details/77151598
+
+           Object.prototype.toString.call('') ; // [object String]
+           Object.prototype.toString.call(1) ; // [object Number]
+           Object.prototype.toString.call(true) ; // [object Boolean]
+           Object.prototype.toString.call(undefined) ; // [object Undefined]
+           Object.prototype.toString.call(null) ; // [object Null]
+           Object.prototype.toString.call(new Function()) ; // [object Function]
+           Object.prototype.toString.call(new Date()) ; // [object Date]
+           Object.prototype.toString.call([]) ; // [object Array]
+           Object.prototype.toString.call(new RegExp()) ; // [object RegExp]
+           Object.prototype.toString.call(new Error()) ; // [object Error]
+           Object.prototype.toString.call(document) ; // [object HTMLDocument]
+           Object.prototype.toString.call(window) ; //[object global] window 是全局对象 global 的引用
+
 - 9. 可能发生隐式类型转换的场景以及转换原则，应如何避免或巧妙应用
      >
 - 10. 出现小数精度丢失的原因，JavaScript 可以存储的最大数字、最大安全数字，JavaScript 处理大数字的方法、避免精度丢失的方法
       >
+
+```
+
+```
