@@ -28,7 +28,7 @@
      > null 表示一个空对象指针，typeof 返回 Object  
      > undefined 是一个已被声明还未被初始化的变量，用来表示尚未存在的对象。typeof 返回 undefined
      ```
-     console.log(null==undefined) // true
+     console.log(null == undefined) // true
      console.log(null === undefined)  // false
      ```
 
