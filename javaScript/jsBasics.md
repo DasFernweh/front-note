@@ -34,30 +34,39 @@
 
 - 8.  至少可以说出三种判断 JavaScript 数据类型的方式，以及他们的优缺点，如何准确的判断数组类型
 
-      > typeOf()  
-      - 对于基本类型除了null均可以返回正确的结果（String、number、boolean、undefined、Symbol）
-      - 引用类型除了function外全部返回Object
-      - 对于null返回object类型，无法再返回具体类型
-      - 对于function类型返回function类型
-      > instanceOf()  
-      > constructor  
+      > typeOf()
+
+      - 对于基本类型除了 null 均可以返回正确的结果（String、number、boolean、undefined、Symbol）
+      - 引用类型除了 function 外全部返回 Object
+      - 对于 null 返回 object 类型，无法再返回具体类型
+      - 对于 function 类型返回 function 类型
+
+      > instanceOf()
+
+      - 用来判断 A 是否为 B 的实例，表达式为：A instanceof B，是则返回 true 反之 false
+      - instanceof 只能判断两个对象是否属于实例关系，而不能判断一个对象实例具体属于哪种类型
+
+      > constructor
+
+      - 刚刚
+
       > Object.prototype.toString  
       > jquery.type()  
       > 参考链接 https://www.cnblogs.com/onepixel/p/5126046.html  
       > https://blog.csdn.net/mozuncangtianbaxue/article/details/77151598
 
-           Object.prototype.toString.call('') ; // [object String]
-           Object.prototype.toString.call(1) ; // [object Number]
-           Object.prototype.toString.call(true) ; // [object Boolean]
-           Object.prototype.toString.call(undefined) ; // [object Undefined]
-           Object.prototype.toString.call(null) ; // [object Null]
-           Object.prototype.toString.call(new Function()) ; // [object Function]
-           Object.prototype.toString.call(new Date()) ; // [object Date]
-           Object.prototype.toString.call([]) ; // [object Array]
-           Object.prototype.toString.call(new RegExp()) ; // [object RegExp]
-           Object.prototype.toString.call(new Error()) ; // [object Error]
-           Object.prototype.toString.call(document) ; // [object HTMLDocument]
-           Object.prototype.toString.call(window) ; //[object global] window 是全局对象 global 的引用
+            Object.prototype.toString.call('') ; // [object String]
+            Object.prototype.toString.call(1) ; // [object Number]
+            Object.prototype.toString.call(true) ; // [object Boolean]
+            Object.prototype.toString.call(undefined) ; // [object Undefined]
+            Object.prototype.toString.call(null) ; // [object Null]
+            Object.prototype.toString.call(new Function()) ; // [object Function]
+            Object.prototype.toString.call(new Date()) ; // [object Date]
+            Object.prototype.toString.call([]) ; // [object Array]
+            Object.prototype.toString.call(new RegExp()) ; // [object RegExp]
+            Object.prototype.toString.call(new Error()) ; // [object Error]
+            Object.prototype.toString.call(document) ; // [object HTMLDocument]
+            Object.prototype.toString.call(window) ; //[object global] window 是全局对象 global 的引用
 
 - 9. 可能发生隐式类型转换的场景以及转换原则，应如何避免或巧妙应用
      >
