@@ -323,10 +323,67 @@
 4.  至少说出一种开源项目(如 Node)中应用原型继承的案例
     > hh
 5.  可以描述 new 一个对象的详细过程，手动实现一个 new 操作符
+
     > 参考地址：https://blog.csdn.net/cc18868876837/article/details/81211729
-      详细过程：
+    > 详细过程：
+
+    - 创建一个新对象
+    - 将所创建对象的`_proto_`属性值设为构造函数的`prototype`的属性值
+    - 执行构造函数中的代码，构造函数中的 this 指向该对象
+    - 返回对象
+
+    ```javascript
+    function new1(func) {
+      var newObj = Object.create(func.prototype); // 创建一个继承自func.prototype的新对象
+      // 截取new1函数第二个以及第二个之后的参数，在newObj作用域内执行改造函数func
+      var returnObj = func.apply(newObj,Array.prototype.slice.call(arguments,1));
+      // 如果传入参数中的构造函数执行后的returnObj是对象类型（比如new1(Object)），那么这个对象会取代newObj作为返回的对象
+      if((typeof returnObj === 'object' || typeof returnObj === 'function') && return !== null) {
+        return returnObject;
+      } //如果传入参数中的构造函数执行后的returnObj是“对象”类型(比如new1(Object)),那么这个对象会取代newObj作为返回的对象
+      return newObj
+    }
+
+    fucntion new2(func){
+      return function() {
+        let newObj = {
+          __proto__:func.prototype  // 新生成一个对象，且新对象的原型对象继承自构造对象的原型对象
+        }
+        var returnObj = func.apply(obj,arguments)  // 以第二次执行函数的参数，在obj作用域中执行func
+        if((typeof returnObj === 'object' || typeof returnObj === 'function') && returnObj !== null){
+          return returnObj
+        }
+        return newObj
+      }
+    }
+
+    var object1 = new1(Object);
+    var object2 = new2(Object)();
+    var object3 = new Object();
+
+    function person(name,age){
+      this.name = name
+      this.age = age
+    }
+
+    var func1 = new1(person,'zhus',25)
+    var func2 = new2(person)('zhus',25)
+    var func3 = new person('zhus',25)
+    ```
+
 6.  理解 es6 class 构造以及继承的底层实现原理
-    > hh
+
+    > es6 的 class 可以看成一个语法糖  
+    > `obj.hasOwnProperty`用来检测一个对象是否含有特定的自身属性，不包含继承属性。在 prototype 上边的是不能访问到的  
+    > 类中的静态方法只能通过类来调用，不能被实例继承
+
+    ```javascript
+    class Point {}
+    typeof Point // function
+    Point === Point.prototype.constructor
+    // 类是数据类型就是函数，类本身就指向构造函数
+    ```
+
 7.  js 的设计模式（简单介绍）
 
     - 工厂模式：在函数内创建一个对象，给对象赋予属性及方法再将对象返回
