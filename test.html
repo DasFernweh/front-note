@@ -7,11 +7,16 @@
     <title>Document</title>
   </head>
   <body>
+    <!-- 
+
+-->
     <input type="text" id="inp" />
     <button id="inps"></button>
+    <!-- 
+
+-->
     <script text="text/javascript">
       ;(function() {})()
-
       function debounce(fn, delay) {
         console.log('123 :', 123)
         let timeout = null // 创建一个标记用来存放定时器的返回值
@@ -19,6 +24,7 @@
           clearTimeout(timeout) // 每当用户输入的时候吧前一个setTimeout clear掉
           timeout = setTimeout(() => {
             // 然后又创建一个新的setTimeout，这样就能保证输入字符后的interval间隔内如果还有字符输入的话，就不会执行fn函数
+            //
             fn.apply(this, arguments)
             console.log('this :', this)
           }, 500)
@@ -75,6 +81,7 @@
       DFSDeepClone(obj1)
       console.log('hah', DFSDeepClone(obj1))
     </script>
+
     <script>
       // 排序
       function bubbleSort(arr) {
@@ -110,6 +117,142 @@
           i = pos
         }
         return arr
+      }
+    </script>
+
+    <!-- 将数字倒序输出 -->
+    <script>
+      function reverseSort(num) {
+        console.log('num.toString :', num.toString)
+        let arr = num.toString(),
+          len = arr.length,
+          i = 0,
+          reslut = []
+        while (i < len) {
+          let tmp = arr[arr.length - 1]
+          arr = arr.substring(0, arr.length - 1)
+          reslut.push(tmp)
+          i++
+        }
+        console.log('reslut :', reslut)
+        return reslut
+      }
+      var nums = 14523
+      reverseSort(nums)
+
+      function fun(num) {
+        let num1 = num / 10
+        let num2 = num % 10
+        if (num1 < 1) {
+          return num
+        } else {
+          num1 = Math.floor(num1)
+          return `${num2}${fun(num1)}`
+        }
+      }
+
+      function test(num) {
+        num = typeof num === 'number' ? num.toString() : num
+        let a = num[num.length - 1],
+          b = num.substring(0, num.length - 1)
+        if (num.length <= 1) return num
+        else return num[num.length - 1] + test(num.substring(0, num.length - 1))
+      }
+      var a = test(124511)
+      console.log(a)
+      console.log(typeof a)
+    </script>
+
+    <!-- 数组合并 -->
+    <script>
+      // 通用方法
+      function mergeArr(arr1, arr2) {
+        const ret = []
+        let tmp = arr2[0]
+        let j = 0
+        for (let i = 0; i < arr1.length; i++) {
+          if (tmp === arr1[i].charAt(0)) {
+            ret.push(arr1[i])
+          } else {
+            ret.push(tmp)
+            ret.push(arr1[i])
+            tmp = arr2[++j]
+          }
+          if (i === arr1.length - 1) {
+            ret.push(tmp)
+          }
+        }
+        return ret
+      }
+      const arr1 = ['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3', 'D1', 'D2', 'D3']
+      const arr2 = ['A', 'B', 'C', 'D']
+      mergeArr(arr1, arr2)
+      // 针对性的
+      let a1 = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2'],
+        a2 = ['A', 'B', 'C', 'D'].map(item => {
+          return item + 3
+        })
+      let a3 = [...a1, ...a2].sort.map(item => {
+        if (item.includes('3')) {
+          return item.split()[0]
+        }
+        return item
+      })
+    </script>
+
+    <!-- flatten函数 -->
+    <script>
+      // for...of实现
+      function flatten(arr, reslut = []) {
+        for (let item of arr) {
+          if (Array.isArray(item)) flatten(item, reslut)
+          else reslut.push(item)
+        }
+        return reslut
+      }
+
+      // reduce实现
+      const flatten = array => array.reduce((acc,cur) => (Array.isArray(cur) ? [...acc,flatten(cur)] : [...acc,cur]), [])
+      // 迭代实现
+      const flatten = function(arr) {
+        while (arr.some(item => Array.isArray(item))) {
+          arr = [].concat(...arr)
+        }
+        return arr
+      }
+      // 迭代器实现
+      Array.prototype[Symbol.iterator] = function() {
+        let arr = [].concat(this)
+        const getFirst = function(array) {
+          let first = array[0]
+          // 去掉为[]的元素
+          while (Array.isArray(array[0]) && array.length === 0) {
+            array.shift()
+          }
+          if (Array.isArray(first)) {
+            // 即将是[]
+            if (first.length === 1) array.shift()
+            return getFirst(first)
+          } else {
+            array.shift()
+            return first
+          }
+        }
+        return {
+          next: function() {
+            let item = getFirst(arr)
+            if (item) {
+              return {
+                value: item,
+                done: false,
+              }
+            } else {
+              return {
+                done: true,
+              }
+            }
+          },
+        }
       }
     </script>
   </body>
